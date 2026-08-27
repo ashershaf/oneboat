@@ -1,0 +1,916 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>One Boat: Carrying This Together</title>
+<meta name="description" content="Israel is ours. All of ours. One Boat connects people abroad to the specific, ongoing ways Israel needs them: teaching, mental health support, consulting, giving, showing up, organizing.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root {
+    --cream: #faf4e6;
+    --cream-deep: #f2e9d5;
+    --paper: #fffdf8;
+    --ink: #24344a;
+    --ink-soft: #4b5b71;
+    --navy: #16273f;
+    --navy-deep: #0d1a2c;
+    --sunset-1: #16273f;
+    --sunset-2: #7a4a3a;
+    --sunset-3: #d97a3f;
+    --sunset-4: #eab054;
+    --terracotta: #bd5a34;
+    --terracotta-soft: #d97a3f;
+    --gold: #a8823f;
+    --line: rgba(36, 52, 74, 0.12);
+    --card-bg: #fffdf9;
+    --shadow: 0 1px 2px rgba(22, 39, 63, 0.06), 0 8px 24px rgba(22, 39, 63, 0.06);
+    --radius: 16px;
+    --focus: #2f6fb3;
+    color-scheme: light;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    * { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; }
+  }
+
+  body {
+    margin: 0;
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1, h2, h3, .display {
+    font-family: 'Fraunces', Georgia, 'Times New Roman', serif;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+    color: var(--navy);
+    margin: 0;
+  }
+
+  a { color: inherit; }
+  img, svg { display: block; max-width: 100%; }
+
+  :focus-visible {
+    outline: 3px solid var(--focus);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  .container {
+    max-width: 1080px;
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .eyebrow {
+    font-family: 'Inter', sans-serif;
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  /* ---------- Skip link ---------- */
+  .skip-link {
+    position: absolute;
+    left: 16px;
+    top: -60px;
+    background: var(--navy);
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 8px;
+    z-index: 100;
+    transition: top 0.2s ease;
+    font-weight: 600;
+    text-decoration: none;
+  }
+  .skip-link:focus { top: 16px; }
+
+  /* ---------- Nav ---------- */
+  .site-nav {
+    position: sticky;
+    top: 0;
+    z-index: 40;
+    background: rgba(250, 244, 230, 0.86);
+    backdrop-filter: saturate(160%) blur(10px);
+    -webkit-backdrop-filter: saturate(160%) blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .site-nav .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    font-size: 19px;
+    color: var(--navy);
+  }
+  .brand svg { width: 24px; height: 24px; color: var(--terracotta); }
+  .nav-links {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: 14.5px;
+    font-weight: 500;
+  }
+  .nav-links a {
+    text-decoration: none;
+    color: var(--ink-soft);
+    padding: 6px 2px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+  .nav-links a:hover { color: var(--navy); border-color: var(--terracotta-soft); }
+  .nav-cta {
+    background: var(--navy);
+    color: #fff !important;
+    padding: 9px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    border: none;
+  }
+  .nav-cta:hover { background: var(--navy-deep); border-color: transparent; }
+  .nav-toggle { display: none; }
+
+  @media (max-width: 780px) {
+    .nav-links { display: none; }
+    .nav-toggle {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 44px; height: 44px;
+      background: none; border: none; cursor: pointer;
+      color: var(--navy);
+    }
+    .site-nav.open .nav-links {
+      display: flex;
+      flex-direction: column;
+      position: absolute;
+      top: 64px; left: 0; right: 0;
+      background: var(--paper);
+      padding: 16px 24px 24px;
+      border-bottom: 1px solid var(--line);
+      gap: 4px;
+    }
+    .site-nav.open .nav-links a { padding: 12px 4px; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--sunset-1) 0%, var(--sunset-1) 38%, var(--sunset-2) 62%, var(--sunset-3) 84%, var(--sunset-4) 100%);
+    color: #fdf6ea;
+    padding: 88px 0 120px;
+    text-align: center;
+  }
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(60% 50% at 50% 100%, rgba(255, 220, 170, 0.35), transparent 70%);
+    pointer-events: none;
+  }
+  .hero .container { position: relative; z-index: 1; }
+  .hero-eyebrow {
+    font-size: 12.5px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #f3d9b3;
+    margin-bottom: 22px;
+  }
+  .hero h1 {
+    color: #fffaf0;
+    font-size: clamp(40px, 7vw, 72px);
+    line-height: 1.05;
+    font-weight: 500;
+    max-width: 16ch;
+    margin: 0 auto;
+  }
+  .hero-sub {
+    margin: 26px auto 0;
+    max-width: 560px;
+    font-size: 18px;
+    color: #f4e5cd;
+    font-style: italic;
+    font-family: 'Fraunces', serif;
+    line-height: 1.6;
+  }
+  .hero-actions {
+    margin-top: 40px;
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 26px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 15px;
+    text-decoration: none;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    font-family: 'Inter', sans-serif;
+  }
+  .btn:hover { transform: translateY(-1px); }
+  .btn-primary {
+    background: #fffaf0;
+    color: var(--navy-deep);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  }
+  .btn-primary:hover { background: #fff; }
+  .btn-ghost {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fffaf0;
+    border-color: rgba(255, 250, 240, 0.5);
+  }
+  .btn-ghost:hover { background: rgba(255, 255, 255, 0.16); }
+
+  .boat-mark { width: 46px; height: 46px; margin: 0 auto 20px; color: #f3d9b3; opacity: 0.9; }
+
+  .wave-divider {
+    display: block;
+    width: 100%;
+    height: 64px;
+    margin-top: -2px;
+  }
+
+  /* ---------- Sections ---------- */
+  section { padding: 96px 0; }
+  .section-head {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 56px;
+  }
+  .section-head h2 {
+    font-size: clamp(28px, 4vw, 38px);
+    margin-top: 14px;
+  }
+  .section-head p { color: var(--ink-soft); margin-top: 14px; font-size: 17px; }
+
+  .lede {
+    max-width: 720px;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 19px;
+    line-height: 1.75;
+    color: var(--ink-soft);
+  }
+  .lede strong { color: var(--navy); font-weight: 600; }
+
+  /* Reality / Ownership */
+  .twin {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    margin-top: 64px;
+  }
+  @media (max-width: 760px) {
+    .twin { grid-template-columns: 1fr; gap: 32px; }
+  }
+  .twin-card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: var(--shadow);
+  }
+  .twin-card h3 { font-size: 22px; margin-bottom: 16px; }
+  .twin-card ul { margin: 16px 0 0; padding: 0; list-style: none; }
+  .twin-card li {
+    position: relative;
+    padding-left: 22px;
+    margin-bottom: 12px;
+    color: var(--ink-soft);
+  }
+  .twin-card li::before {
+    content: "\2022";
+    position: absolute;
+    left: 0;
+    color: var(--terracotta);
+  }
+  .twin-card p { color: var(--ink-soft); }
+
+  /* Cards grid */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+  @media (max-width: 900px) {
+    .cards { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .cards { grid-template-columns: 1fr; }
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 28px 26px;
+    box-shadow: var(--shadow);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(22,39,63,0.08), 0 16px 32px rgba(22,39,63,0.1);
+  }
+  .card-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    background: linear-gradient(160deg, var(--sunset-4), var(--terracotta-soft));
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 18px;
+  }
+  .card-icon svg { width: 22px; height: 22px; color: #fff9ef; }
+  .card h3 { font-size: 19px; margin-bottom: 8px; }
+  .card p { color: var(--ink-soft); font-size: 15.5px; margin: 0; }
+
+  /* Callout */
+  .callout {
+    display: grid;
+    grid-template-columns: 220px 1fr;
+    gap: 28px;
+    align-items: center;
+    background: linear-gradient(135deg, var(--cream-deep), #efe0c3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 32px 36px;
+  }
+  @media (max-width: 700px) {
+    .callout { grid-template-columns: 1fr; }
+  }
+  .callout .eyebrow { line-height: 1.5; font-size: 13px; }
+  .callout p { margin: 0; color: var(--ink); }
+  .callout p strong { color: var(--terracotta); }
+
+  /* Photo gallery */
+  .photo-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-auto-rows: 160px;
+    gap: 16px;
+  }
+  .photo-grid-item {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 50% 25%;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid var(--line);
+  }
+  .photo-grid-big {
+    grid-column: span 2;
+    grid-row: span 2;
+  }
+  @media (max-width: 760px) {
+    .photo-grid {
+      grid-template-columns: repeat(2, 1fr);
+      grid-auto-rows: 140px;
+    }
+    .photo-grid-big { grid-column: span 2; grid-row: span 2; }
+  }
+  @media (max-width: 480px) {
+    .photo-grid {
+      grid-template-columns: 1fr;
+      grid-auto-rows: 220px;
+    }
+    .photo-grid-big { grid-column: span 1; grid-row: span 1; }
+  }
+
+  /* Quote banner */
+  .quote-banner {
+    background: linear-gradient(120deg, var(--navy-deep), var(--navy) 55%, var(--sunset-2));
+    color: #fdf6ea;
+    text-align: center;
+    padding: 90px 24px;
+  }
+  .quote-banner blockquote {
+    margin: 0 auto;
+    max-width: 720px;
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-weight: 500;
+    font-size: clamp(24px, 4vw, 34px);
+    line-height: 1.5;
+  }
+  .quote-banner cite {
+    display: block;
+    margin-top: 24px;
+    font-style: normal;
+    font-family: 'Inter', sans-serif;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    font-size: 12.5px;
+    color: #e8c99a;
+  }
+
+  /* Vision */
+  .vision {
+    background: var(--navy-deep);
+    color: #f2e9d5;
+  }
+  .vision .section-head h2 { color: #fffaf0; }
+  .vision .section-head p { color: #cfd9e6; }
+  .vision .lede { color: #d9e0ea; }
+  .vision .lede strong { color: #fffaf0; }
+
+  /* Contact / form */
+  .contact-wrap {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 48px;
+    align-items: start;
+  }
+  @media (max-width: 860px) {
+    .contact-wrap { grid-template-columns: 1fr; gap: 40px; }
+  }
+  .contact-copy h2 { font-size: clamp(26px, 4vw, 34px); margin-top: 12px; }
+  .contact-copy p { color: var(--ink-soft); margin-top: 16px; }
+  .contact-list {
+    list-style: none;
+    padding: 0;
+    margin: 28px 0 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .contact-list li {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    font-size: 15px;
+    color: var(--ink-soft);
+  }
+  .contact-list svg { width: 18px; height: 18px; flex-shrink: 0; margin-top: 2px; color: var(--terracotta); }
+
+  form.help-form {
+    background: var(--card-bg);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 32px;
+    box-shadow: var(--shadow);
+  }
+  .field { margin-bottom: 22px; }
+  .field label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--navy);
+    margin-bottom: 8px;
+  }
+  .field .hint { font-weight: 400; color: var(--ink-soft); font-size: 13px; }
+  .field input[type="text"],
+  .field input[type="email"],
+  .field textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--cream);
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--ink);
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .field input:focus, .field textarea:focus {
+    outline: none;
+    border-color: var(--focus);
+    box-shadow: 0 0 0 3px rgba(47, 111, 179, 0.18);
+  }
+  .field textarea { min-height: 120px; resize: vertical; }
+
+  .check-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  @media (max-width: 480px) {
+    .check-grid { grid-template-columns: 1fr; }
+  }
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    background: var(--cream);
+    font-size: 14.5px;
+    cursor: pointer;
+  }
+  .check-item input {
+    width: 18px; height: 18px;
+    accent-color: var(--terracotta);
+    flex-shrink: 0;
+  }
+  .check-item:has(input:focus-visible) {
+    outline: 3px solid var(--focus);
+    outline-offset: 2px;
+  }
+
+  .form-note {
+    font-size: 13px;
+    color: var(--ink-soft);
+    margin-top: 14px;
+    line-height: 1.6;
+  }
+
+  .placeholder-flag {
+    background: #fff2e0;
+    border: 1px solid #e9c48a;
+    color: #7a4a12;
+    border-radius: 10px;
+    padding: 10px 14px;
+    font-size: 13px;
+    margin-bottom: 20px;
+  }
+  .placeholder-flag code { background: rgba(0,0,0,0.06); padding: 1px 5px; border-radius: 4px; }
+
+  /* Footer */
+  footer {
+    background: var(--navy-deep);
+    color: #cfd9e6;
+    padding: 56px 0 32px;
+    text-align: center;
+  }
+  .footer-mark {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    color: #fffaf0;
+    font-family: 'Fraunces', serif;
+    font-size: 15px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .footer-mark svg { width: 20px; height: 20px; color: var(--sunset-4); }
+  footer .tagline { margin-top: 10px; font-size: 12.5px; letter-spacing: 0.12em; color: #8fa0b5; }
+  footer .fine { margin-top: 28px; font-size: 12.5px; color: #6d7f96; }
+
+  /* Dark mode */
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --cream: #10192a;
+      --cream-deep: #16233a;
+      --paper: #14213a;
+      --ink: #ecf1f8;
+      --ink-soft: #aab8cc;
+      --navy: #eef3fa;
+      --navy-deep: #060c17;
+      --card-bg: #16233a;
+      --line: rgba(238, 243, 250, 0.12);
+      --shadow: 0 1px 2px rgba(0,0,0,0.3), 0 8px 24px rgba(0,0,0,0.35);
+      --focus: #7cb2ec;
+      color-scheme: dark;
+    }
+    .site-nav { background: rgba(16, 25, 42, 0.86); }
+    .hero-sub { color: #f4e5cd; }
+    .field input, .field textarea, .check-item { background: #0e1727; color: var(--ink); }
+    .callout { background: linear-gradient(135deg, #1b2a44, #24344f); }
+    .callout p { color: #ecf1f8; }
+    .placeholder-flag { background: #2a2010; border-color: #6b4d1c; color: #f0cf94; }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to content</a>
+
+<nav class="site-nav" id="siteNav">
+  <div class="container">
+    <a class="brand" href="#top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M3 16h18l-1.5 3.2a2 2 0 0 1-1.8 1.1H6.3a2 2 0 0 1-1.8-1.1L3 16Z"/>
+        <path d="M12 3v10"/>
+        <path d="M12 4.5 18 9l-6 1.5-6-1.5 6-4.5Z"/>
+      </svg>
+      One Boat
+    </a>
+    <ul class="nav-links">
+      <li><a href="#reality">The Reality</a></li>
+      <li><a href="#help">How to Help</a></li>
+      <li><a href="#israel-year">In Israel</a></li>
+      <li><a href="#vision">The Vision</a></li>
+      <li><a href="#contact" class="nav-cta">Get Involved</a></li>
+    </ul>
+    <button class="nav-toggle" id="navToggle" aria-expanded="false" aria-controls="siteNav" aria-label="Toggle menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+  </div>
+</nav>
+
+<main id="main">
+
+  <header class="hero" id="top">
+    <div class="container">
+      <svg class="boat-mark" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true">
+        <path d="M3 16h18l-1.5 3.2a2 2 0 0 1-1.8 1.1H6.3a2 2 0 0 1-1.8-1.1L3 16Z"/>
+        <path d="M12 3v10"/>
+        <path d="M12 4.5 18 9l-6 1.5-6-1.5 6-4.5Z"/>
+      </svg>
+      <p class="hero-eyebrow">One People · One Boat · One Responsibility</p>
+      <h1>Carrying This Together</h1>
+      <p class="hero-sub">Israel is ours. All of ours. Not a cause we support from the outside, but a home we are responsible for, together.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#contact">Tell us how you'd like to help</a>
+        <a class="btn btn-ghost" href="#help">See the ways to take part</a>
+      </div>
+    </div>
+  </header>
+
+  <svg class="wave-divider" viewBox="0 0 1440 64" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0,32 C240,64 480,0 720,20 C960,40 1200,8 1440,32 L1440,64 L0,64 Z" fill="var(--cream)"></path>
+  </svg>
+
+  <section id="reality">
+    <div class="container">
+      <p class="lede">
+        For generations, the division was clear: the people in Israel were the people on the ground, and people and institutions around the world supported their initiatives financially. That giving matters; it always has, and it always will. <strong>What we're proposing adds to it: an equally real, equally ongoing form of partnership.</strong> Ownership is something you express by staying actively present in Israel's life.
+      </p>
+
+      <div class="twin">
+        <div class="twin-card">
+          <p class="eyebrow">This is the new reality</p>
+          <h3>What used to be the exception is becoming the rule</h3>
+          <ul>
+            <li>Reserve duty, once measured in weeks, is now a fixture of daily life for hundreds of thousands of families.</li>
+            <li>Wounded soldiers face years of rehabilitation, not weeks.</li>
+            <li>Those living with PTSD are not recovering for a season; they carry it for life.</li>
+            <li>Threats sit on multiple fronts at once.</li>
+          </ul>
+          <p style="margin-top:18px;">What was once treated as an emergency to get through is, for the foreseeable future, simply how things are.</p>
+        </div>
+
+        <div class="twin-card">
+          <p class="eyebrow">It's still yours</p>
+          <h3>Ownership doesn't stop at the border</h3>
+          <p>Most people around the world are not moving to Israel. But anyone can come to Israel at any time and call it home: celebrate a bar or bat mitzvah there, spend a year learning, visit whenever they choose, and know that if they ever needed to, they could go.</p>
+          <p style="margin-top:14px;">If it's yours, its future is something you carry too, as a partner.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="help" style="background:var(--cream-deep);">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">The Goal</p>
+        <h2>What everyone can do</h2>
+        <p>The goal is for everyone to take part: substantially, meaningfully, and on an ongoing basis. Not once, and not only when the news demands it. There are many real ways to do that.</p>
+      </div>
+
+      <div class="cards">
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v9M9.5 15c0 1.1 1.1 2 2.5 2s2.5-.7 2.5-1.8c0-2.4-5-1.4-5-3.8 0-1 1.1-1.8 2.5-1.8s2.5.7 2.5 1.6"/></svg>
+          </div>
+          <h3>Give consistently</h3>
+          <p>Financial support, given on an ongoing basis, is one of the real, needed ways to take part.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5C6 4.5 9 4.5 12 6c3-1.5 6-1.5 8-.5v13c-2-1-5-1-8 .5-3-1.5-6-1.5-8-.5v-13Z"/><path d="M12 6v13"/></svg>
+          </div>
+          <h3>Teach</h3>
+          <p>English, a skill, a subject, over Zoom, every week, to kids.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.7-10-9.2C.6 8.4 2.3 5 5.6 5c1.9 0 3.3 1 4.4 2.6C11.1 6 12.5 5 14.4 5c3.3 0 5 3.4 3.6 6.8C15.5 16.3 12 21 12 21Z"/></svg>
+          </div>
+          <h3>Mental health</h3>
+          <p>Israel is in desperate need of these professionals, on Zoom too.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3.5" y="8" width="17" height="11" rx="1.6"/><path d="M8.5 8V6.2A1.7 1.7 0 0 1 10.2 4.5h3.6A1.7 1.7 0 0 1 15.5 6.2V8"/><path d="M3.5 13h17"/></svg>
+          </div>
+          <h3>Consult</h3>
+          <p>Bring your professional expertise to Israeli students, institutions, and businesses that need exactly what you know.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 20c1.6-3.4 4.4-5.2 8-5.2s6.4 1.8 8 5.2"/><circle cx="12" cy="8.2" r="3.4"/></svg>
+          </div>
+          <h3>Show up</h3>
+          <p>A few weeks a year in agriculture, or on a mission built around your specific skill: medicine, PT, whatever you bring.</p>
+        </div>
+
+        <div class="card">
+          <div class="card-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="8" cy="9" r="2.6"/><circle cx="17" cy="9" r="2.2"/><path d="M3 19c0-3 2.2-5 5-5s5 2 5 5"/><path d="M13.5 14.3c2.5.3 4.5 2.2 4.5 4.7"/></svg>
+          </div>
+          <h3>Organize</h3>
+          <p>Rally your community to stand behind a specific group of reservist families, ongoing, not just once.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="israel-year">
+    <div class="container">
+      <div class="callout">
+        <p class="eyebrow">If you're in Israel<br>for the year</p>
+        <p>Spending a gap year or a semester in Israel? Take on one family: a reservist household, a bereaved family, a wounded soldier, and come to them every week. <strong>One relationship, kept up all year, changes what that year means for both of you.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="gallery" style="background:var(--cream-deep);">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">The People</p>
+        <h2>This is who it's for</h2>
+        <p>Families like these, showing up for each other across the distance, are what One Boat is built to support.</p>
+      </div>
+      <div class="photo-grid">
+        <img class="photo-grid-item photo-grid-big" src="images/family-2.jpg" alt="An extended family gathered around a table together, smiling and waving." loading="lazy">
+        <img class="photo-grid-item" src="images/family-1.jpg" alt="Two children sharing a meal together at a kitchen table." loading="lazy">
+        <img class="photo-grid-item" src="images/family-3.jpg" alt="A family gathered around a table by a window, sharing a meal." loading="lazy">
+        <img class="photo-grid-item" src="images/family-4.jpg" alt="Children gathered around a table, laughing together over a meal." loading="lazy">
+        <img class="photo-grid-item" src="images/family-5.jpg" alt="A group of children smiling together around a table." loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <div class="quote-banner">
+    <blockquote>
+      &ldquo;The point isn't which one you choose. It's that everyone has one.&rdquo;
+      <cite>One People · One Boat · One Responsibility</cite>
+    </blockquote>
+  </div>
+
+  <section id="vision" class="vision">
+    <div class="container">
+      <div class="section-head">
+        <p class="eyebrow">What we're building</p>
+        <h2>A platform for a sustained connection</h2>
+      </div>
+      <p class="lede">
+        One place that shows, in real time, what Israel actually needs: which community, which family, which institution, and connects each need to the person, group, or family abroad whose time, expertise, or ongoing partnership fits it. <strong>Not a single act, but a sustained connection</strong>, matched to what you have to offer and where it's needed most.
+      </p>
+    </div>
+  </section>
+
+  <section id="contact" style="background:var(--cream-deep);">
+    <div class="container contact-wrap">
+      <div class="contact-copy">
+        <p class="eyebrow">Get involved</p>
+        <h2>Tell us how you want to carry this</h2>
+        <p>This project is just getting started, and it's being built with the people who show up for it. Tell us a little about yourself and how you'd like to take part, and we'll follow up personally.</p>
+        <ul class="contact-list">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 21s-7.5-4.7-10-9.2C.6 8.4 2.3 5 5.6 5c1.9 0 3.3 1 4.4 2.6C11.1 6 12.5 5 14.4 5c3.3 0 5 3.4 3.6 6.8C15.5 16.3 12 21 12 21Z"/></svg>
+            No commitment is too small; the goal is that everyone has one.
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+            Ongoing beats one-time; pick something you can keep doing.
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M4 5.5C6 4.5 9 4.5 12 6c3-1.5 6-1.5 8-.5v13c-2-1-5-1-8 .5-3-1.5-6-1.5-8-.5v-13Z"/></svg>
+            Not sure what fits? Say so in the message, and we'll help match you.
+          </li>
+        </ul>
+      </div>
+
+      <form class="help-form" id="helpForm" novalidate>
+        <div class="field">
+          <label for="name">Your name</label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+        </div>
+
+        <div class="field">
+          <label for="email">Your email <span class="hint">so we can follow up</span></label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </div>
+
+        <div class="field">
+          <label id="waysLabel">How would you like to help? <span class="hint">choose any that fit</span></label>
+          <div class="check-grid" role="group" aria-labelledby="waysLabel">
+            <label class="check-item"><input type="checkbox" name="way" value="Give consistently"> Give consistently</label>
+            <label class="check-item"><input type="checkbox" name="way" value="Teach"> Teach</label>
+            <label class="check-item"><input type="checkbox" name="way" value="Mental health support"> Mental health</label>
+            <label class="check-item"><input type="checkbox" name="way" value="Consult"> Consult</label>
+            <label class="check-item"><input type="checkbox" name="way" value="Show up in person"> Show up</label>
+            <label class="check-item"><input type="checkbox" name="way" value="Organize my community"> Organize</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="message">Your message</label>
+          <textarea id="message" name="message" placeholder="Tell us a bit about yourself, your skills or availability, and how you'd like to be involved."></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; background:var(--terracotta); color:#fff9ef;">
+          Send message
+        </button>
+        <p class="form-note">This opens your email app with your details filled in, ready for you to review and send. Nothing is sent automatically.</p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="container">
+    <div class="footer-mark">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+        <path d="M3 16h18l-1.5 3.2a2 2 0 0 1-1.8 1.1H6.3a2 2 0 0 1-1.8-1.1L3 16Z"/>
+        <path d="M12 3v10"/>
+        <path d="M12 4.5 18 9l-6 1.5-6-1.5 6-4.5Z"/>
+      </svg>
+      One Boat
+    </div>
+    <p class="tagline">One People · One Boat · One Responsibility</p>
+    <p class="fine">&copy; 2026 One Boat. Carrying this together.</p>
+  </div>
+</footer>
+
+<script>
+  (function () {
+    var toggle = document.getElementById('navToggle');
+    var nav = document.getElementById('siteNav');
+    toggle.addEventListener('click', function () {
+      var open = nav.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    nav.querySelectorAll('.nav-links a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        nav.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+
+  (function () {
+    var PLACEHOLDER_EMAIL = 'lizimartin@gmail.com';
+    var form = document.getElementById('helpForm');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = document.getElementById('name').value.trim();
+      var email = document.getElementById('email').value.trim();
+      var message = document.getElementById('message').value.trim();
+      var ways = Array.from(form.querySelectorAll('input[name="way"]:checked')).map(function (cb) { return cb.value; });
+
+      if (!name || !email) {
+        var missing = !name ? document.getElementById('name') : document.getElementById('email');
+        missing.focus();
+        return;
+      }
+
+      var subject = 'One Boat: I want to help';
+      var bodyLines = [
+        'Name: ' + name,
+        'Email: ' + email,
+        'Ways to help: ' + (ways.length ? ways.join(', ') : 'Not specified'),
+        '',
+        'Message:',
+        message || '(no additional message)'
+      ];
+      var mailto = 'mailto:' + PLACEHOLDER_EMAIL +
+        '?subject=' + encodeURIComponent(subject) +
+        '&body=' + encodeURIComponent(bodyLines.join('\n'));
+      window.location.href = mailto;
+    });
+  })();
+</script>
+
+</body>
+</html>
